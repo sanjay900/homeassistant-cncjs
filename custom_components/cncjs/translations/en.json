@@ -13,7 +13,11 @@
                     "controllertype": "Controller Type",
                     "serialport": "Serial Port",
                     "baudrate": "Serial Baudrate",
-                    "user_id": "user_id"
+                    "user_id": "User ID",
+                    "name": "Device Name",
+                    "ip_address": "IP Address",
+                    "username": "Username",
+                    "access_token": "Secret"
                 },
                 "description": "Set up a CNCjs integration with Home Assistant.",
                 "title": "CNCjs"
