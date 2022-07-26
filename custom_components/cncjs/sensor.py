@@ -14,6 +14,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     cnc = hass.data[DOMAIN][config_entry.entry_id]
+    await cnc.connect()
     async_add_entities([
         CNCjsStateSensor(
             cnc=cnc

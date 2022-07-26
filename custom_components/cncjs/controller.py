@@ -58,7 +58,7 @@ class CNCjsController:
         try:
             await self.sio.connect(f"http://{self.ip}:{self.port}?token={self.access_token}")
             await self.event.wait()
-        except ConnectionError as e:
+        except ConnectionError:
             self.error = "connection_error"
             self.connected = False
         return self.connected
