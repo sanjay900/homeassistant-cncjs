@@ -37,7 +37,8 @@ class CNCjsFlowHandler(ConfigFlow, domain=DOMAIN):
         errors = {}
 
         if user_input is not None:
-            cncjs = CNCjsController(None, user_input[CONF_NAME], user_input[CONF_USER_ID], user_input[CONF_USERNAME], user_input[CONF_ACCESS_TOKEN], user_input[CONF_IP_ADDRESS], user_input[CONF_PORT], user_input[CONF_SERIAL_PORT], user_input[CONF_BAUDRATE], user_input[CONF_CONTROLLER_TYPE])
+            user_id = user_input[CONF_USER_ID] if CONF_USER_ID in user_input else ""
+            cncjs = CNCjsController(None, user_input[CONF_NAME], user_id, user_input[CONF_USERNAME], user_input[CONF_ACCESS_TOKEN], user_input[CONF_IP_ADDRESS], user_input[CONF_PORT], user_input[CONF_SERIAL_PORT], user_input[CONF_BAUDRATE], user_input[CONF_CONTROLLER_TYPE])
             if not await cncjs.connect():
                 errors["base"] = cncjs.error
             else:
@@ -50,7 +51,7 @@ class CNCjsFlowHandler(ConfigFlow, domain=DOMAIN):
                         CONF_IP_ADDRESS: user_input[CONF_IP_ADDRESS],
                         CONF_ACCESS_TOKEN: user_input[CONF_ACCESS_TOKEN],
                         CONF_PORT: user_input[CONF_PORT],
-                        CONF_USER_ID: user_input[CONF_USER_ID],
+                        CONF_USER_ID: user_id,
                         CONF_USERNAME: user_input[CONF_USERNAME],
                         CONF_SERIAL_PORT: user_input[CONF_SERIAL_PORT],
                         CONF_BAUDRATE: user_input[CONF_BAUDRATE],
