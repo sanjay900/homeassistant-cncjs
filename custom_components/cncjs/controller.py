@@ -1,4 +1,5 @@
 import asyncio
+from typing import Callable
 import jwt
 import socketio
 from homeassistant.core import HomeAssistant
@@ -18,14 +19,16 @@ class CNCjsController:
         self.sio = socketio.AsyncClient()
         self.error = None
         self.id = name
+        self._callbacks = set()
         @self.sio.on('workflow:state')
         async def on_message(data):
             self.state = data
+            self._publish_updates()
 
         @self.sio.on('sender:status')
         async def on_message(data):
             # {'sp': 1, 'hold': False, 'holdReason': None, 'name': '', 'context': {}, 'size': 0, 'total': 0, 'sent': 0, 'received': 0, 'startTime': 0, 'finishTime': 0, 'elapsedTime': 0, 'remainingTime': 0}
-            pass
+            self._publish_updates()
 
         @self.sio.event
         async def connect():
@@ -43,7 +46,9 @@ class CNCjsController:
         @self.sio.event
         async def disconnect():
             self.connected = False
-
+    def _publish_updates(self):
+        for callback in self._callbacks:
+            callback()
     async def disconnect(self):
         await self.sio.disconnect()
 
@@ -56,3 +61,11 @@ class CNCjsController:
             self.error = "connection_error"
             self.connected = False
         return self.connected
+
+    def register_callback(self, callback: Callable[[], None]) -> None:
+        """Register callback, called when Roller changes state."""
+        self._callbacks.add(callback)
+
+    def remove_callback(self, callback: Callable[[], None]) -> None:
+        """Remove previously registered callback."""
+        self._callbacks.discard(callback)
