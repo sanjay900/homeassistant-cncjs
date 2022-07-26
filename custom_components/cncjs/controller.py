@@ -4,7 +4,7 @@ import jwt
 import socketio
 from homeassistant.core import HomeAssistant
 from socketio.exceptions import ConnectionError
-
+import re
 from .const import ControllerType
 
 class CNCjsController:
@@ -18,7 +18,8 @@ class CNCjsController:
         self.event = asyncio.Event()
         self.sio = socketio.AsyncClient()
         self.error = None
-        self.id = name
+        self.id = re.sub(r'[^\w]', '', name).lower()
+        self.name = name
         self._callbacks = set()
         @self.sio.on('workflow:state')
         async def on_message(data):

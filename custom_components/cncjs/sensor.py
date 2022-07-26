@@ -7,7 +7,6 @@ from homeassistant.components.sensor import SensorEntity
 from .const import (
     DOMAIN
 )
-import socketio
 
 async def async_setup_entry(
     hass: HomeAssistant,
