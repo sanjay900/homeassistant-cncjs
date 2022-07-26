@@ -2,7 +2,7 @@
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.components.sensor import Entity
+from homeassistant.components.sensor import SensorEntity
 
 from .const import (
     DOMAIN
@@ -22,7 +22,7 @@ async def async_setup_entry(
     ])
 
 
-class CNCjsStateSensor(Entity):
+class CNCjsStateSensor(SensorEntity):
     should_poll = False
     def __init__(self, cnc):
         self.cnc = cnc
