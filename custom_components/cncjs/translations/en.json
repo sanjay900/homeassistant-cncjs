@@ -1,0 +1,23 @@
+{
+    "config": {
+        "abort": {
+            "connection_error_auth": "Error connecting (possibly incorrect token?)",
+            "connection_error": "Failed to connect"
+        },
+        "create_entry": {
+            "default": "Successfully authenticated"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "controllertype": "Controller Type",
+                    "serialport": "Serial Port",
+                    "baudrate": "Serial Baudrate",
+                    "user_id": "user_id"
+                },
+                "description": "Set up a CNCjs integration with Home Assistant.",
+                "title": "CNCjs"
+            }
+        }
+    }
+}
