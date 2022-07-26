@@ -24,7 +24,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up CNCjs from a config entry."""
     # Store an instance of the "connecting" class that does the work of speaking
     # with your actual devices.
-    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = controller.CNCjsController(hass, entry.data[CONF_USER_ID], entry.data[CONF_USERNAME], entry.data[CONF_ACCESS_TOKEN], entry.data[CONF_IP_ADDRESS], entry.data[CONF_PORT], entry.data[CONF_SERIAL_PORT], entry.data[CONF_BAUDRATE], ControllerType(entry.data[CONF_CONTROLLER_TYPE]))
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = controller.CNCjsController(hass, entry.data[CONF_NAME], entry.data[CONF_USER_ID], entry.data[CONF_USERNAME], entry.data[CONF_ACCESS_TOKEN], entry.data[CONF_IP_ADDRESS], entry.data[CONF_PORT], entry.data[CONF_SERIAL_PORT], entry.data[CONF_BAUDRATE], ControllerType(entry.data[CONF_CONTROLLER_TYPE]))
 
     # This creates each HA object for each platform your device requires.
     # It's done by calling the `async_setup_entry` function in each platform module.
